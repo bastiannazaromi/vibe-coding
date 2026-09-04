@@ -8,6 +8,13 @@
       "when": 1788495100249,
       "tag": "0000_typical_tomas",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1788531186073,
+      "tag": "0001_purple_omega_sentinel",
+      "breakpoints": true
     }
   ]
 }
