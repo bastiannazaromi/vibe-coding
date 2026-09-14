@@ -80,3 +80,26 @@ export async function getCurrentUser(token: string) {
         created_at: user.createdAt,
     };
 }
+
+export async function logoutUser(token: string) {
+    if (!token) {
+        throw new Error("Unauthorized");
+    }
+
+    // Find session by token
+    const sessionList = await db
+        .select()
+        .from(sessions)
+        .where(eq(sessions.token, token))
+        .limit(1);
+
+    const session = sessionList[0];
+    if (!session) {
+        throw new Error("Unauthorized");
+    }
+
+    // Delete session from database
+    await db.delete(sessions).where(eq(sessions.token, token));
+
+    return true;
+}
