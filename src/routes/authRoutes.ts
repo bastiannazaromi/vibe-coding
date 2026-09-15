@@ -21,9 +21,22 @@ export const authRoutes = new Elysia({ prefix: "/api" }).post(
     },
     {
         body: t.Object({
-            email: t.String(),
-            password: t.String(),
+            email: t.String({ example: "john@example.com" }),
+            password: t.String({ example: "password123" }),
         }),
+        response: {
+            200: t.Object({
+                status: t.Boolean({ example: true }),
+                message: t.String({ example: "Login successfully" }),
+                data: t.Object({
+                    token: t.String({ example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d" }),
+                }),
+            }),
+            400: t.Object({
+                status: t.Boolean({ example: false }),
+                message: t.String({ example: "Email atau password salah" }),
+            }),
+        },
         detail: {
             tags: ["Auth"],
             summary: "Login pengguna dan membuat token sesi baru",
