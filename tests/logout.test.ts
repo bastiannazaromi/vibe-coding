@@ -61,7 +61,10 @@ describe("GET /api/users/logout", () => {
         expect(body.message).toBe("Berhasil logout");
 
         // Verify session is deleted from database
-        const dbSessions = await db.select().from(sessions).where(eq(sessions.token, token));
+        const dbSessions = await db
+            .select()
+            .from(sessions)
+            .where(eq(sessions.token, token));
         expect(dbSessions.length).toBe(0);
     });
 

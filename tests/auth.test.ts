@@ -49,7 +49,10 @@ describe("POST /api/auth/login", () => {
         expect(body.data).toHaveProperty("token");
 
         // Verify session is created in DB
-        const sessionRecord = await db.select().from(sessions).where(eq(sessions.token, body.data.token));
+        const sessionRecord = await db
+            .select()
+            .from(sessions)
+            .where(eq(sessions.token, body.data.token));
         expect(sessionRecord.length).toBe(1);
     });
 
