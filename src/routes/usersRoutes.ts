@@ -38,9 +38,21 @@ export const usersRoutes = new Elysia({ prefix: "/api" })
         },
         {
             body: t.Object({
-                name: t.String(),
-                email: t.String(),
-                password: t.String(),
+                name: t.String({
+                    minLength: 1,
+                    maxLength: 255,
+                    error: "Name harus diisi dan maksimal 255 karakter",
+                }),
+                email: t.String({
+                    format: "email",
+                    maxLength: 255,
+                    error: "Format email tidak valid atau terlalu panjang",
+                }),
+                password: t.String({
+                    minLength: 6,
+                    maxLength: 255,
+                    error: "Password minimal 6 karakter dan maksimal 255 karakter",
+                }),
             }),
         },
     )
