@@ -24,5 +24,9 @@ export const authRoutes = new Elysia({ prefix: "/api" }).post(
             email: t.String(),
             password: t.String(),
         }),
+        detail: {
+            tags: ["Auth"],
+            summary: "Login pengguna dan membuat token sesi baru",
+        },
     },
 );

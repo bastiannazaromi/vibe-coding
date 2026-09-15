@@ -54,40 +54,62 @@ export const usersRoutes = new Elysia({ prefix: "/api" })
                     error: "Password minimal 6 karakter dan maksimal 255 karakter",
                 }),
             }),
+            detail: {
+                tags: ["Users"],
+                summary: "Registrasi pengguna baru",
+            },
         },
     )
-    .get("/users/current", async ({ headers, set }) => {
-        try {
-            const token = getBearerToken(headers);
-            const currentUser = await getCurrentUser(token);
+    .get(
+        "/users/current",
+        async ({ headers, set }) => {
+            try {
+                const token = getBearerToken(headers);
+                const currentUser = await getCurrentUser(token);
 
-            return {
-                status: true,
-                message: "User ditemukan",
-                data: currentUser,
-            };
-        } catch (error: any) {
-            set.status = 401;
-            return {
-                status: false,
-                message: "Unauthorized",
-            };
-        }
-    })
-    .get("/users/logout", async ({ headers, set }) => {
-        try {
-            const token = getBearerToken(headers);
-            await logoutUser(token);
+                return {
+                    status: true,
+                    message: "User ditemukan",
+                    data: currentUser,
+                };
+            } catch (error: any) {
+                set.status = 401;
+                return {
+                    status: false,
+                    message: "Unauthorized",
+                };
+            }
+        },
+        {
+            detail: {
+                tags: ["Users"],
+                summary: "Mendapatkan profil pengguna yang sedang login",
+            },
+        },
+    )
+    .get(
+        "/users/logout",
+        async ({ headers, set }) => {
+            try {
+                const token = getBearerToken(headers);
+                await logoutUser(token);
 
-            return {
-                status: true,
-                message: "Berhasil logout",
-            };
-        } catch (error: any) {
-            set.status = 401;
-            return {
-                status: false,
-                message: "Unauthorized",
-            };
-        }
-    });
+                return {
+                    status: true,
+                    message: "Berhasil logout",
+                };
+            } catch (error: any) {
+                set.status = 401;
+                return {
+                    status: false,
+                    message: "Unauthorized",
+                };
+            }
+        },
+        {
+            detail: {
+                tags: ["Users"],
+                summary: "Logout pengguna dan menghapus sesi aktif",
+            },
+        },
+    );
