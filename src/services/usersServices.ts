@@ -9,6 +9,19 @@ export interface RegisterUserInput {
     password?: string;
 }
 
+/**
+ * Mendaftarkan akun pengguna baru ke dalam sistem.
+ *
+ * Fungsi ini akan:
+ * 1. Memvalidasi ketersediaan input.
+ * 2. Mengecek apakah email sudah terdaftar sebelumnya.
+ * 3. Melakukan hashing pada password menggunakan bcrypt.
+ * 4. Menyimpan data pengguna baru ke database.
+ *
+ * @param input Data registrasi (nama, email, password)
+ * @returns Objek berisi id, nama, dan email pengguna yang baru dibuat
+ * @throws Error apabila input tidak lengkap atau email sudah digunakan
+ */
 export async function registerUser(input: RegisterUserInput) {
     const { name, email, password } = input;
 
@@ -44,6 +57,18 @@ export async function registerUser(input: RegisterUserInput) {
     };
 }
 
+/**
+ * Mengambil data profil pengguna yang sedang login berdasarkan token.
+ *
+ * Fungsi ini akan:
+ * 1. Mengecek ketersediaan token.
+ * 2. Mencari data sesi di tabel sessions berdasarkan token tersebut.
+ * 3. Mencari data pengguna terkait di tabel users berdasarkan userId dari sesi.
+ *
+ * @param token Token otentikasi Bearer (biasanya dari header HTTP)
+ * @returns Data profil pengguna saat ini (id, nama, email, created_at)
+ * @throws Error "Unauthorized" jika token tidak valid, kosong, atau sesi tidak ditemukan
+ */
 export async function getCurrentUser(token: string) {
     if (!token) {
         throw new Error("Unauthorized");
@@ -81,6 +106,18 @@ export async function getCurrentUser(token: string) {
     };
 }
 
+/**
+ * Menghapus sesi pengguna untuk proses logout.
+ *
+ * Fungsi ini akan:
+ * 1. Memastikan token tersedia.
+ * 2. Mengecek apakah token tersebut valid dan ada di tabel sessions.
+ * 3. Menghapus record sesi tersebut dari database, sehingga token tidak lagi berlaku.
+ *
+ * @param token Token otentikasi Bearer yang akan di-logout
+ * @returns Boolean true jika proses penghapusan sesi berhasil
+ * @throws Error "Unauthorized" jika token kosong atau sesi tidak ditemukan
+ */
 export async function logoutUser(token: string) {
     if (!token) {
         throw new Error("Unauthorized");

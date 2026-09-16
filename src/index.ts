@@ -1,10 +1,24 @@
 import { Elysia } from "elysia";
+import { swagger } from "@elysiajs/swagger";
 import { db } from "./db";
 import { users } from "./db/schema";
 import { usersRoutes } from "./routes/usersRoutes";
 import { authRoutes } from "./routes/authRoutes";
 
 const app = new Elysia()
+    .use(
+        swagger({
+            path: "/swagger",
+            documentation: {
+                info: {
+                    title: "Vibe Coding API Documentation",
+                    version: "1.0.0",
+                    description:
+                        "Dokumentasi API interaktif untuk autentikasi dan manajemen user",
+                },
+            },
+        }),
+    )
     .use(usersRoutes)
     .use(authRoutes)
     .get("/", () => ({
