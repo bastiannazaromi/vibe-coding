@@ -29,7 +29,9 @@ export const authRoutes = new Elysia({ prefix: "/api" }).post(
                 status: t.Boolean({ example: true }),
                 message: t.String({ example: "Login successfully" }),
                 data: t.Object({
-                    token: t.String({ example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d" }),
+                    token: t.String({
+                        example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+                    }),
                 }),
             }),
             400: t.Object({

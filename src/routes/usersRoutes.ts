@@ -60,7 +60,9 @@ export const usersRoutes = new Elysia({ prefix: "/api" })
             response: {
                 200: t.Object({
                     status: t.Boolean({ example: true }),
-                    message: t.String({ example: "User registered successfully" }),
+                    message: t.String({
+                        example: "User registered successfully",
+                    }),
                     data: t.Object({
                         id: t.Number({ example: 1 }),
                         name: t.String({ example: "John Doe" }),
@@ -107,7 +109,9 @@ export const usersRoutes = new Elysia({ prefix: "/api" })
                         id: t.Number({ example: 1 }),
                         name: t.String({ example: "John Doe" }),
                         email: t.String({ example: "john@example.com" }),
-                        created_at: t.Any({ example: "2026-09-15T10:00:00.000Z" }),
+                        created_at: t.Any({
+                            example: "2026-09-15T10:00:00.000Z",
+                        }),
                     }),
                 }),
                 401: t.Object({
